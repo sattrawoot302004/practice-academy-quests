@@ -1,3 +1,27 @@
-<h1 class="text-6xl font-bold text-gray-800 mb-4 hover:text-indigo-600 transition-colors duration-300 text-center">
-      Hello World! 👋
-    </h1>
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-green-100 py-8 px-2 flex flex-col items-center">
+  <div class="w-full max-w-md md:max-w-2xl bg-white rounded-2xl shadow-2xl p-4 md:p-10 mt-8 transition-all">
+    <div class="flex flex-col items-center mb-8">
+      <%= image_tag "sattrawoot.jpg", alt: "Description", class: "w-28 h-28 md:w-40 md:h-40 object-cover rounded-full shadow-lg border-4 border-blue-200 mb-4" %>
+      <h3 class="text-lg md:text-2xl font-semibold text-gray-700">Sattrawoot Parnemeng</h3>
+      <h1 class="text-2xl md:text-4xl font-extrabold text-blue-700 mt-1 mb-2 text-center drop-shadow">My Academy Quest</h1>
+    </div>
+    <div class="flex justify-center mb-6">
+      <%= link_to "Brags Document", brags_path, class: "inline-block bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-bold py-2 px-6 rounded-full shadow transition-all duration-200" %>
+    </div>
+    <%= turbo_frame_tag "tasks_list" do %>
+      <div class="bg-gray-100 rounded-xl p-4 mb-6 shadow-inner">
+        <%= form_with(model: @task, url: create_task_path, method: :post) do |form| %>
+          <div class="flex flex-col md:flex-row gap-3">
+            <%= form.text_field :title, placeholder: "Enter task title", class: "flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm " , data: { testid: "task-title-input" } %>
+            <%= form.submit "Create", class: "bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold shadow transition-all" , data: { testid: "create-task-button" } %>
+          </div>
+        <% end %>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4">
+        <% @tasks.each do |task| %>
+          <%= render partial: "task", locals: { task: task } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

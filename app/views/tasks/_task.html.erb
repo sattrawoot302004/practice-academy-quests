@@ -1,10 +1,17 @@
-<div id="<%= dom_id task %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= task.title %>
+<div class="flex items-center justify-between gap-2 py-3 border-b last:border-b-0 hover:bg-blue-50 rounded-xl transition-all">
+  <div class="flex items-center gap-3 flex-1 min-w-0">
+    <%= form_with url: update_task_path(task), method: :patch, local: false do |f| %>
+      <%= f.check_box :completed, checked: task.completed, onchange: "this.form.requestSubmit();", class: "h-5 w-5 text-blue-600 rounded focus:ring-blue-500" %>
+    <% end %>
+    <span
+  class="text-gray-900 text-base md:text-lg <%= task_complete_class(task) %> flex-1 min-w-0 break-words"
+  title="<%= task.title %>"
+    >
+  <%= task.title %>
+</span>
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Completed:</strong>
-    <%= task.completed? ? "Yes" : "No" %>
+  <div class="flex-shrink-0">
+    <%= button_to "Delete", delete_task_path(task), method: :delete,
+          class: "bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm md:text-base shadow transition-all" %>
   </div>
 </div>
