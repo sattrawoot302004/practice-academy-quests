@@ -25,6 +25,9 @@ gem "jbuilder"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
+# For read .env file
+gem "dotenv-rails"
+
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
 gem "solid_queue"
@@ -43,6 +46,15 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
+  gem "rspec-rails"
+  gem "dotenv-rails"
+  gem "simplecov"
+  gem "webdrivers", require: false
+  gem "cucumber-rails", require: false
+  gem "database_cleaner-active_record"
+  gem "factory_bot_rails"
+  gem "rails-controller-testing"
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
