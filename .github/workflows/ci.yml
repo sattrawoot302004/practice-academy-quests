@@ -87,8 +87,8 @@ jobs:
      
       - name: Prepare database
         env:
-        DATABASE_URL: postgres://postgres:postgres@localhost:5432
-        RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          RAILS_ENV: test
         run: bin/rails db:create db:migrate db:seed
 
       - name: Run tests
