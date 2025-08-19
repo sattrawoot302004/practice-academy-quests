@@ -1,17 +1,20 @@
-<div class="flex items-center justify-between gap-2 py-3 border-b last:border-b-0 hover:bg-blue-50 rounded-xl transition-all">
-  <div class="flex items-center gap-3 flex-1 min-w-0">
+<div class="bg-white rounded-lg p-3 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200">
+  <div class="flex items-center gap-3">
+    <!-- Checkbox -->
     <%= form_with url: update_task_path(task), method: :patch, local: false do |f| %>
-      <%= f.check_box :completed, checked: task.completed, onchange: "this.form.requestSubmit();", class: "h-5 w-5 text-blue-600 rounded focus:ring-blue-500" %>
+      <%= f.check_box :completed, checked: task.completed, onchange: "this.form.requestSubmit();", class: "w-4 h-4 text-blue-500 rounded border-2 border-gray-300 focus:ring-2 focus:ring-blue-400 transition-colors" %>
     <% end %>
-    <span
-  class="text-gray-900 text-base md:text-lg <%= task_complete_class(task) %> flex-1 min-w-0 break-words"
-  title="<%= task.title %>"
-    >
-  <%= task.title %>
-</span>
-  </div>
-  <div class="flex-shrink-0">
-    <%= button_to "Delete", delete_task_path(task), method: :delete,
-          class: "bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm md:text-base shadow transition-all" %>
+    
+    <!-- Task Title -->
+    <span class="flex-1 text-sm md:text-base text-gray-700 <%= task_complete_class(task) %> min-w-0 break-words">
+      <%= task.title %>
+    </span>
+    
+    <!-- Delete Button -->
+    <%= button_to delete_task_path(task), method: :delete,
+          class: "text-gray-400 hover:text-red-500 transition-colors p-1 flex-shrink-0",
+          title: "Delete task" do %>
+       <%= image_tag "delete-2-svgrepo-com.svg", alt: "Delete", class: "w-5 h-5" %>
+    <% end %>
   </div>
 </div>

@@ -1,27 +1,44 @@
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-green-100 py-8 px-2 flex flex-col items-center">
-  <div class="w-full max-w-md md:max-w-2xl bg-white rounded-2xl shadow-2xl p-4 md:p-10 mt-8 transition-all">
-    <div class="flex flex-col items-center mb-8">
-      <%= image_tag "sattrawoot.jpg", alt: "Description", class: "w-28 h-28 md:w-40 md:h-40 object-cover rounded-full shadow-lg border-4 border-blue-200 mb-4" %>
-      <h3 class="text-lg md:text-2xl font-semibold text-gray-700">Sattrawoot Parnemeng</h3>
-      <h1 class="text-2xl md:text-4xl font-extrabold text-blue-700 mt-1 mb-2 text-center drop-shadow">My Academy Quest</h1>
+<div class="min-h-screen bg-gray-50 py-4 px-3 flex flex-col items-center">
+  <div class="w-full max-w-sm md:max-w-lg bg-white rounded-xl shadow-sm p-4 md:p-6 mt-4 border border-gray-100">
+    
+    <!-- Header -->
+ <div class="text-center mb-6">
+      <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-3 flex items-center justify-center">
+        <%= image_tag "sattrawoot.jpg", alt: "SP", class: "w-18 h-18 md:w-22 md:h-22 rounded-full object-cover" %>
+      </div>
+      <h3 class="text-sm md:text-base text-gray-600 font-medium">Sattrawoot Parnemeng</h3>
+      <h1 class="text-lg md:text-xl font-bold text-gray-900 mt-1">My Academy Quest</h1>
     </div>
-    <div class="flex justify-center mb-6">
-      <%= link_to "Brags Document", brags_path, class: "inline-block bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-bold py-2 px-6 rounded-full shadow transition-all duration-200" %>
+
+    <!-- Brags Button -->
+    <div class="mb-6">
+      <%= link_to "Brags Document", brags_path, class: "block w-full text-center bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 text-white font-medium py-2.5 px-4 rounded-xl text-sm transition-all duration-200" %>
     </div>
+
     <%= turbo_frame_tag "tasks_list" do %>
-      <div class="bg-gray-100 rounded-xl p-4 mb-6 shadow-inner">
+      <!-- Add Task Form -->
+      <div class="bg-gray-50 rounded-xl p-3 mb-4">
         <%= form_with(model: @task, url: create_task_path, method: :post) do |form| %>
-          <div class="flex flex-col md:flex-row gap-3">
-            <%= form.text_field :title, placeholder: "Enter task title", class: "flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm " , data: { testid: "task-title-input" } %>
-            <%= form.submit "Create", class: "bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold shadow transition-all" , data: { testid: "create-task-button" } %>
-          </div>
+           <div class="space-y-3">
+      <%= form.text_field :title, 
+            placeholder: "Add new task...", 
+            class: "w-full border-0 bg-white rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 transition-all #{'border-red-500 ring-2 ring-red-400' if @task.errors[:title].any?}", 
+            data: { testid: "task-title-input" } %>
+      <% if @task.errors[:title].any? %>
+        <p class="flex items-center gap-1 text-red-500 text-xs"> <%= image_tag "error-svgrepo-com.svg", alt: "Error", class: "w-5 h-5" %>กรุณาระบุรายละเอียด</p>
+      <% end %>
+      <%= form.submit "Add Task", class: "w-full bg-blue-500 hover:bg-blue-600 text-white py-2.5 rounded-lg font-medium text-sm transition-all duration-200", data: { testid: "create-task-button" } %>
+    </div>
         <% end %>
       </div>
-      <div class="bg-white rounded-xl shadow p-4">
+
+      <!-- Tasks List -->
+      <div class="space-y-2">
         <% @tasks.each do |task| %>
           <%= render partial: "task", locals: { task: task } %>
         <% end %>
       </div>
     <% end %>
+    
   </div>
 </div>
